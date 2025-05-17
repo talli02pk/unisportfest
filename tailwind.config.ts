@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -61,6 +62,13 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				sports: {
+					blue: '#1E77FC', 
+					orange: '#FF7A00',
+					yellow: '#FFB800',
+					green: '#00D26A',
+					red: '#FF3B30'
 				}
 			},
 			borderRadius: {
@@ -84,12 +92,21 @@ export default {
 					to: {
 						height: '0'
 					}
+				},
+				'pulse-gentle': {
+					'0%, 100%': { transform: 'scale(1)' },
+					'50%': { transform: 'scale(1.03)' },
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
-			}
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				'pulse-gentle': 'pulse-gentle 2s infinite ease-in-out'
+			},
+            fontFamily: {
+                'poppins': ['Poppins', 'sans-serif'],
+                'montserrat': ['Montserrat', 'sans-serif'],
+            }
 		}
 	},
 	plugins: [require("tailwindcss-animate")],
