@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -38,8 +37,11 @@ const DEPARTMENTS = [
   "Biology"
 ];
 
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+
 const Register = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [selectedGames, setSelectedGames] = useState<string[]>([]);
   const { toast } = useToast();
   
@@ -74,14 +76,43 @@ const Register = () => {
     }
   };
 
-  const onSubmit = (data: FormData) => {
-    console.log("Form submitted with data:", data);
-    toast({
-      title: "Registration Successful!",
-      description: `Thank you, ${data.fullName}! Your registration for the Sports Fest has been received.`,
-      duration: 5000,
-    });
-    setIsSubmitted(true);
+  const onSubmit = async (data: FormData) => {
+    try {
+      setIsLoading(true);
+      console.log("Form submitted with data:", data);
+      
+      // Send data to SQL Server via our API
+      const response = await fetch(`${API_BASE_URL}/api/register`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+      
+      const result = await response.json();
+      
+      if (!response.ok) {
+        throw new Error(result.message || 'Registration failed');
+      }
+      
+      toast({
+        title: "Registration Successful!",
+        description: `Thank you, ${data.fullName}! Your registration for the Sports Fest has been received.`,
+        duration: 5000,
+      });
+      setIsSubmitted(true);
+    } catch (error) {
+      console.error("Registration error:", error);
+      toast({
+        variant: "destructive",
+        title: "Registration Failed",
+        description: error instanceof Error ? error.message : "Could not connect to the server. Please try again.",
+        duration: 5000,
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   if (isSubmitted) {
@@ -257,8 +288,9 @@ const Register = () => {
                 <Button
                   type="submit"
                   className="w-full bg-sports-blue hover:bg-sports-blue/90 font-semibold text-lg py-6"
+                  disabled={isLoading}
                 >
-                  Submit Registration
+                  {isLoading ? 'Submitting...' : 'Submit Registration'}
                 </Button>
               </div>
             </form>

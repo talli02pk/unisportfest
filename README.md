@@ -1,73 +1,84 @@
-# Welcome to your Lovable project
 
-## Project info
+# University Sports Fest Website
 
-**URL**: https://lovable.dev/projects/b710978f-deef-473c-a824-8e7ea1a0adfe
+This is a web application for a university sports fest event, featuring a homepage with event details and a registration form that connects to a SQL Server database.
 
-## How can I edit this code?
+## Project Structure
 
-There are several ways of editing your application.
+- `/src` - Frontend React application
+- `/server` - Backend Express.js API that connects to SQL Server
 
-**Use Lovable**
+## Setup Instructions
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/b710978f-deef-473c-a824-8e7ea1a0adfe) and start prompting.
+### Prerequisites
 
-Changes made via Lovable will be committed automatically to this repo.
+- Node.js (v14 or later)
+- SQL Server installed and running
+- SQL Server credentials
 
-**Use your preferred IDE**
+### Frontend Setup
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+1. Install dependencies:
+```
+npm install
+```
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+2. Create a `.env.local` file with:
+```
+VITE_API_URL=http://localhost:5000
+```
 
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+3. Start the development server:
+```
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+### Backend Setup
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+1. Navigate to the server directory:
+```
+cd server
+```
 
-**Use GitHub Codespaces**
+2. Install server dependencies:
+```
+npm install
+```
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+3. Create a `.env` file based on `.env.example` with your SQL Server credentials:
+```
+SQL_USER=your_username
+SQL_PASSWORD=your_password
+SQL_SERVER=your_server
+SQL_DATABASE=SportsFestDB
+PORT=5000
+```
 
-## What technologies are used for this project?
+4. Start the server:
+```
+npm run dev
+```
 
-This project is built with:
+## Database Setup
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+The application will automatically create a `Registrations` table in your SQL Server database if it doesn't exist. Make sure your SQL user has permissions to create tables.
 
-## How can I deploy this project?
+## Building for Production
 
-Simply open [Lovable](https://lovable.dev/projects/b710978f-deef-473c-a824-8e7ea1a0adfe) and click on Share -> Publish.
+1. Build the frontend:
+```
+npm run build
+```
 
-## Can I connect a custom domain to my Lovable project?
+2. Set NODE_ENV to production in your server .env file:
+```
+NODE_ENV=production
+```
 
-Yes, you can!
+3. Start the server which will serve the frontend build:
+```
+cd server
+npm start
+```
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+The application will be available at http://localhost:5000
