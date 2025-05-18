@@ -23,12 +23,7 @@ This is a web application for a university sports fest event, featuring a homepa
 npm install
 ```
 
-2. Create a `.env.local` file with:
-```
-VITE_API_URL=http://localhost:5000
-```
-
-3. Start the development server:
+2. Start the development server:
 ```
 npm run dev
 ```
